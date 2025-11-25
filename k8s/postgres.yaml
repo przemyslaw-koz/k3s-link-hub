@@ -4,4 +4,7 @@ metadata:
   name: link-hub
 ---
 apiVersion: v1
-
+kind: StatfulSet
+metadata:
+  name: postgres
+  namespace: link-hub
