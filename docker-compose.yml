@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: linkhub
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: linkhub
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: ./backend/
+    restart: always
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_USER: linkhub
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: linkhub
+    depends_on:
+      - db
+    ports:
+      - "8082:3000"
+
+  frontend:
+    build: ./frontend/
+    restart: always
+    ports:
+      - "8083:80"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
