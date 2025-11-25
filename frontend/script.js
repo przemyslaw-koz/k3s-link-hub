@@ -1,4 +1,4 @@
-const API = "http://localhost:8082";
+const API = `${window.location.protocol}//${window.location.hostname}:8082`;
 
 async function loadLinks() {
   const res = await fetch(`${API}/links`);
